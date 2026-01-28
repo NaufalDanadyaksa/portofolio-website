@@ -8,27 +8,29 @@ export default function Contact() {
     return (
         <section id="contact" className="section-padding">
             <div className="max-w-4xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <div className="text-center mb-10 md:mb-16">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
                         {t.contact.title}
                     </h2>
-                    <p className="text-[var(--muted)] text-lg">{t.contact.subtitle}</p>
+                    <p className="text-[var(--muted)] text-sm md:text-lg px-2">
+                        {t.contact.subtitle}
+                    </p>
                 </div>
 
-                <div className="glass rounded-2xl p-8 md:p-12 glow">
-                    <p className="text-lg text-[var(--muted)] leading-relaxed text-center mb-10">
+                <div className="glass rounded-xl md:rounded-2xl p-5 md:p-8 lg:p-12 glow">
+                    <p className="text-sm md:text-lg text-[var(--muted)] leading-relaxed text-center mb-8 md:mb-10">
                         {t.contact.message}
                     </p>
 
-                    <div className="grid md:grid-cols-2 gap-6 mb-10">
+                    <div className="grid sm:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-10">
                         {/* Email */}
                         <a
-                            href="mailto:naufaldanadyaksa@gmail.com"
-                            className="flex items-center gap-4 p-6 bg-[var(--surface-light)] rounded-xl hover:bg-[var(--surface)] transition-colors group"
+                            href="mailto:naufal060906@gmail.com"
+                            className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-[var(--surface-light)] rounded-xl hover:bg-[var(--surface)] transition-colors group"
                         >
-                            <div className="p-3 rounded-lg bg-gradient-to-br from-[var(--primary)]/20 to-[var(--secondary)]/20 group-hover:from-[var(--primary)]/30 group-hover:to-[var(--secondary)]/30 transition-colors">
+                            <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 group-hover:from-cyan-500/30 group-hover:to-emerald-500/30 transition-colors flex-shrink-0">
                                 <svg
-                                    className="w-6 h-6 text-[var(--primary)]"
+                                    className="w-5 h-5 md:w-6 md:h-6 text-cyan-400"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -41,10 +43,12 @@ export default function Contact() {
                                     />
                                 </svg>
                             </div>
-                            <div>
-                                <div className="text-sm text-[var(--muted)]">{t.contact.email}</div>
-                                <div className="font-medium text-[var(--foreground)]">
-                                    naufaldanadyaksa@gmail.com
+                            <div className="min-w-0">
+                                <div className="text-xs md:text-sm text-[var(--muted)]">
+                                    {t.contact.email}
+                                </div>
+                                <div className="font-medium text-[var(--foreground)] text-sm md:text-base truncate">
+                                    naufal060906@gmail.com
                                 </div>
                             </div>
                         </a>
@@ -54,11 +58,11 @@ export default function Contact() {
                             href="https://github.com/NaufalDanadyaksa"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-4 p-6 bg-[var(--surface-light)] rounded-xl hover:bg-[var(--surface)] transition-colors group"
+                            className="flex items-center gap-3 md:gap-4 p-4 md:p-6 bg-[var(--surface-light)] rounded-xl hover:bg-[var(--surface)] transition-colors group"
                         >
-                            <div className="p-3 rounded-lg bg-gradient-to-br from-[var(--primary)]/20 to-[var(--secondary)]/20 group-hover:from-[var(--primary)]/30 group-hover:to-[var(--secondary)]/30 transition-colors">
+                            <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 group-hover:from-cyan-500/30 group-hover:to-emerald-500/30 transition-colors flex-shrink-0">
                                 <svg
-                                    className="w-6 h-6 text-[var(--primary)]"
+                                    className="w-5 h-5 md:w-6 md:h-6 text-cyan-400"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                 >
@@ -69,9 +73,11 @@ export default function Contact() {
                                     />
                                 </svg>
                             </div>
-                            <div>
-                                <div className="text-sm text-[var(--muted)]">{t.contact.github}</div>
-                                <div className="font-medium text-[var(--foreground)]">
+                            <div className="min-w-0">
+                                <div className="text-xs md:text-sm text-[var(--muted)]">
+                                    {t.contact.github}
+                                </div>
+                                <div className="font-medium text-[var(--foreground)] text-sm md:text-base">
                                     NaufalDanadyaksa
                                 </div>
                             </div>
@@ -82,10 +88,10 @@ export default function Contact() {
                     <div className="text-center">
                         <a
                             href="mailto:naufaldanadyaksa@gmail.com"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-full font-semibold text-white hover:opacity-90 transition-opacity shadow-lg shadow-[var(--primary)]/20"
+                            className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full font-semibold text-white text-sm md:text-base hover:opacity-90 transition-all active:scale-95"
                         >
                             <svg
-                                className="w-5 h-5"
+                                className="w-4 h-4 md:w-5 md:h-5"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"

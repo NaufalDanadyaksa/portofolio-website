@@ -8,50 +8,52 @@ export default function Projects() {
     return (
         <section id="projects" className="section-padding bg-[var(--surface)]">
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <div className="text-center mb-10 md:mb-16">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
                         {t.projects.title}
                     </h2>
-                    <p className="text-[var(--muted)] text-lg">{t.projects.subtitle}</p>
+                    <p className="text-[var(--muted)] text-sm md:text-lg px-2">
+                        {t.projects.subtitle}
+                    </p>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-4 md:space-y-8">
                     {t.projects.items.map((project, index) => (
                         <div
                             key={index}
-                            className="glass rounded-2xl p-8 card-hover"
+                            className="glass rounded-xl md:rounded-2xl p-5 md:p-8 card-hover"
                         >
-                            <div className="grid lg:grid-cols-3 gap-8">
+                            <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
                                 {/* Project Info */}
-                                <div className="lg:col-span-2 space-y-6">
-                                    <h3 className="text-2xl font-bold gradient-text">
+                                <div className="lg:col-span-2 space-y-4 md:space-y-6">
+                                    <h3 className="text-xl md:text-2xl font-bold gradient-text">
                                         {project.title}
                                     </h3>
 
-                                    <div className="space-y-4">
+                                    <div className="space-y-3 md:space-y-4">
                                         <div>
-                                            <h4 className="text-sm font-semibold text-[var(--primary)] uppercase tracking-wider mb-2">
+                                            <h4 className="text-xs md:text-sm font-semibold text-cyan-400 uppercase tracking-wider mb-1.5 md:mb-2">
                                                 Problem
                                             </h4>
-                                            <p className="text-[var(--muted)] leading-relaxed">
+                                            <p className="text-[var(--muted)] text-sm md:text-base leading-relaxed">
                                                 {project.problem}
                                             </p>
                                         </div>
 
                                         <div>
-                                            <h4 className="text-sm font-semibold text-[var(--secondary)] uppercase tracking-wider mb-2">
+                                            <h4 className="text-xs md:text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-1.5 md:mb-2">
                                                 Solution
                                             </h4>
-                                            <p className="text-[var(--muted)] leading-relaxed">
+                                            <p className="text-[var(--muted)] text-sm md:text-base leading-relaxed">
                                                 {project.solution}
                                             </p>
                                         </div>
 
                                         <div>
-                                            <h4 className="text-sm font-semibold text-[var(--accent)] uppercase tracking-wider mb-2">
+                                            <h4 className="text-xs md:text-sm font-semibold text-purple-400 uppercase tracking-wider mb-1.5 md:mb-2">
                                                 Outcome
                                             </h4>
-                                            <p className="text-[var(--foreground)] leading-relaxed font-medium">
+                                            <p className="text-[var(--foreground)] text-sm md:text-base leading-relaxed font-medium">
                                                 {project.outcome}
                                             </p>
                                         </div>
@@ -60,29 +62,29 @@ export default function Projects() {
 
                                 {/* Tech Stack */}
                                 <div className="lg:border-l lg:border-[var(--border)] lg:pl-8">
-                                    <h4 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider mb-4">
+                                    <h4 className="text-xs md:text-sm font-semibold text-[var(--muted)] uppercase tracking-wider mb-3 md:mb-4">
                                         Tech Stack
                                     </h4>
                                     <div className="flex flex-wrap gap-2">
                                         {project.stack.map((tech, techIndex) => (
                                             <span
                                                 key={techIndex}
-                                                className="px-3 py-1.5 text-sm bg-[var(--surface-light)] rounded-full text-[var(--foreground)] border border-[var(--border)]"
+                                                className="px-2.5 py-1 md:px-3 md:py-1.5 text-xs md:text-sm bg-[var(--surface-light)] rounded-full text-[var(--foreground)] border border-[var(--border)]"
                                             >
                                                 {tech}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[var(--border)]">
                                         <a
                                             href="https://github.com/NaufalDanadyaksa"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-[var(--primary)] hover:text-[var(--secondary)] transition-colors"
+                                            className="inline-flex items-center gap-2 text-sm text-cyan-400 hover:text-emerald-400 transition-colors"
                                         >
                                             <svg
-                                                className="w-5 h-5"
+                                                className="w-4 h-4 md:w-5 md:h-5"
                                                 fill="currentColor"
                                                 viewBox="0 0 24 24"
                                             >
