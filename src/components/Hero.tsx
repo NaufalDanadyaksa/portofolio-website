@@ -70,7 +70,7 @@ export default function Hero() {
                         }`}
                     style={{ transitionDelay: "200ms" }}
                 >
-                    <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer">
+                    <span className="gradient-text">
                         {t.hero.role}
                     </span>
                 </h2>

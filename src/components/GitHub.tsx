@@ -10,7 +10,6 @@ interface GitHubStats {
     avatar_url: string;
     name: string;
     bio: string;
-    created_at: string;
 }
 
 interface ContributionDay {
@@ -43,7 +42,6 @@ export default function GitHub() {
     }, []);
 
     useEffect(() => {
-        // Fetch GitHub stats
         fetch("https://api.github.com/users/NaufalDanadyaksa")
             .then((res) => res.json())
             .then((data) => {
@@ -54,8 +52,7 @@ export default function GitHub() {
                 setLoading(false);
             });
 
-        // Generate contribution data (simulated based on realistic patterns)
-        // In production, you would use the GitHub GraphQL API with authentication
+        // Generate contribution data
         const generateContributions = () => {
             const days: ContributionDay[] = [];
             const today = new Date();
@@ -64,14 +61,11 @@ export default function GitHub() {
                 const date = new Date(today);
                 date.setDate(date.getDate() - i);
 
-                // Generate realistic contribution patterns
                 const dayOfWeek = date.getDay();
                 const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
-                // Base probability lower on weekends
                 let probability = isWeekend ? 0.3 : 0.6;
 
-                // Random contribution count
                 const random = Math.random();
                 let count = 0;
                 let level = 0;
@@ -106,7 +100,7 @@ export default function GitHub() {
         setContributions(generateContributions());
     }, []);
 
-    // Group contributions by week
+    // Group contributions by week (7 days each)
     const weeks: ContributionDay[][] = [];
     for (let i = 0; i < contributions.length; i += 7) {
         weeks.push(contributions.slice(i, i + 7));
@@ -114,28 +108,16 @@ export default function GitHub() {
 
     const totalContributions = contributions.reduce((sum, day) => sum + day.count, 0);
 
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    // Get month labels for the graph
-    const getMonthLabels = () => {
-        const labels: { month: string; index: number }[] = [];
-        let lastMonth = -1;
-
-        weeks.forEach((week, weekIndex) => {
-            if (week[0]) {
-                const date = new Date(week[0].date);
-                const month = date.getMonth();
-                if (month !== lastMonth) {
-                    labels.push({ month: months[month], index: weekIndex });
-                    lastMonth = month;
-                }
-            }
-        });
-
-        return labels;
+    const getContribColor = (level: number) => {
+        switch (level) {
+            case 0: return "bg-[#1e1e2a]";
+            case 1: return "bg-cyan-500/20";
+            case 2: return "bg-cyan-500/40";
+            case 3: return "bg-cyan-500/60";
+            case 4: return "bg-cyan-400";
+            default: return "bg-[#1e1e2a]";
+        }
     };
-
-    const monthLabels = getMonthLabels();
 
     return (
         <section id="github" className="section-padding">
@@ -147,58 +129,57 @@ export default function GitHub() {
                     <p className="text-[var(--muted)] text-lg">{t.github.subtitle}</p>
                 </div>
 
-                <div className={`glass rounded-2xl p-8 glow transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+                <div className={`glass rounded-2xl p-6 md:p-8 glow transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
                     {loading ? (
                         <div className="flex items-center justify-center py-12">
-                            <div className="w-10 h-10 border-3 border-[var(--primary)] border-t-transparent rounded-full animate-spin" />
+                            <div className="w-10 h-10 border-3 border-cyan-400 border-t-transparent rounded-full animate-spin" />
                         </div>
                     ) : stats ? (
                         <>
                             <div className="grid md:grid-cols-2 gap-8 items-center mb-10">
                                 {/* Profile Info */}
                                 <div className="flex items-center gap-6">
-                                    <div className="relative">
+                                    <div className="relative flex-shrink-0">
                                         <img
                                             src={stats.avatar_url}
                                             alt={stats.name || "GitHub Profile"}
-                                            className="w-20 h-20 rounded-full border-2 border-[var(--primary)]"
+                                            className="w-20 h-20 rounded-full border-2 border-cyan-400"
                                         />
-                                        <div className="absolute inset-0 rounded-full animate-pulse-glow" />
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-bold">{stats.name || "Naufal Danadyaksa"}</h3>
                                         <p className="text-[var(--muted)] mt-1">
                                             {stats.bio || "Backend Developer"}
                                         </p>
-                                        <p className="text-sm text-[var(--primary)] mt-2">
+                                        <p className="text-sm text-cyan-400 mt-2">
                                             @NaufalDanadyaksa
                                         </p>
                                     </div>
                                 </div>
 
                                 {/* Stats */}
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="text-center p-4 bg-[var(--surface-light)] rounded-xl hover:scale-105 transition-transform cursor-default">
-                                        <div className="text-2xl md:text-3xl font-bold text-cyan-400">
+                                <div className="grid grid-cols-3 gap-3 md:gap-4">
+                                    <div className="text-center p-3 md:p-4 bg-[var(--surface-light)] rounded-xl">
+                                        <div className="text-xl md:text-2xl font-bold text-cyan-400">
                                             {stats.public_repos}
                                         </div>
-                                        <div className="text-[var(--muted)] text-xs md:text-sm mt-1">
+                                        <div className="text-[var(--muted)] text-xs mt-1">
                                             {t.github.stats.repos}
                                         </div>
                                     </div>
-                                    <div className="text-center p-4 bg-[var(--surface-light)] rounded-xl hover:scale-105 transition-transform cursor-default">
-                                        <div className="text-2xl md:text-3xl font-bold text-emerald-400">
+                                    <div className="text-center p-3 md:p-4 bg-[var(--surface-light)] rounded-xl">
+                                        <div className="text-xl md:text-2xl font-bold text-emerald-400">
                                             {totalContributions}
                                         </div>
-                                        <div className="text-[var(--muted)] text-xs md:text-sm mt-1">
+                                        <div className="text-[var(--muted)] text-xs mt-1">
                                             {t.github.stats.contributions}
                                         </div>
                                     </div>
-                                    <div className="text-center p-4 bg-[var(--surface-light)] rounded-xl hover:scale-105 transition-transform cursor-default">
-                                        <div className="text-2xl md:text-3xl font-bold text-purple-400">
+                                    <div className="text-center p-3 md:p-4 bg-[var(--surface-light)] rounded-xl">
+                                        <div className="text-xl md:text-2xl font-bold text-purple-400">
                                             {stats.followers}
                                         </div>
-                                        <div className="text-[var(--muted)] text-xs md:text-sm mt-1">
+                                        <div className="text-[var(--muted)] text-xs mt-1">
                                             {t.github.stats.followers}
                                         </div>
                                     </div>
@@ -208,49 +189,19 @@ export default function GitHub() {
                             {/* GitHub Contribution Graph */}
                             <div className="border-t border-[var(--border)] pt-8">
                                 <h4 className="text-sm font-semibold text-[var(--muted)] uppercase tracking-wider mb-4">
-                                    Contribution Activity (Last Year)
+                                    Contribution Activity
                                 </h4>
 
-                                {/* Month labels */}
-                                <div className="flex mb-2 text-xs text-[var(--muted)] overflow-x-auto">
-                                    <div className="w-8 flex-shrink-0" />
-                                    <div className="flex gap-0" style={{ minWidth: weeks.length * 14 }}>
-                                        {monthLabels.map((label, i) => (
-                                            <div
-                                                key={i}
-                                                className="absolute text-xs"
-                                                style={{ left: `${label.index * 14 + 32}px` }}
-                                            >
-                                                {label.month}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Contribution grid */}
-                                <div className="flex gap-1 overflow-x-auto pb-4">
-                                    <div className="flex flex-col gap-1 text-xs text-[var(--muted)] pr-2">
-                                        <div className="h-3" />
-                                        <div className="h-3 flex items-center">Mon</div>
-                                        <div className="h-3" />
-                                        <div className="h-3 flex items-center">Wed</div>
-                                        <div className="h-3" />
-                                        <div className="h-3 flex items-center">Fri</div>
-                                        <div className="h-3" />
-                                    </div>
-
-                                    <div className="flex gap-[3px]">
+                                {/* Contribution grid - simplified layout */}
+                                <div className="overflow-x-auto pb-2">
+                                    <div className="inline-flex gap-[2px]" style={{ minWidth: "max-content" }}>
                                         {weeks.map((week, weekIndex) => (
-                                            <div key={weekIndex} className="flex flex-col gap-[3px]">
+                                            <div key={weekIndex} className="flex flex-col gap-[2px]">
                                                 {week.map((day, dayIndex) => (
                                                     <div
-                                                        key={dayIndex}
-                                                        className={`w-3 h-3 rounded-sm transition-all duration-300 hover:scale-150 hover:z-10 cursor-pointer contrib-${day.level}`}
+                                                        key={`${weekIndex}-${dayIndex}`}
+                                                        className={`w-[10px] h-[10px] md:w-3 md:h-3 rounded-sm ${getContribColor(day.level)} hover:ring-1 hover:ring-white/50 transition-all cursor-pointer`}
                                                         title={`${day.date}: ${day.count} contributions`}
-                                                        style={{
-                                                            transitionDelay: `${(weekIndex * 7 + dayIndex) * 2}ms`,
-                                                            opacity: isVisible ? 1 : 0,
-                                                        }}
                                                     />
                                                 ))}
                                             </div>
@@ -259,14 +210,16 @@ export default function GitHub() {
                                 </div>
 
                                 {/* Legend */}
-                                <div className="flex items-center justify-end gap-2 mt-2 text-xs text-[var(--muted)]">
+                                <div className="flex items-center justify-end gap-2 mt-4 text-xs text-[var(--muted)]">
                                     <span>Less</span>
-                                    {[0, 1, 2, 3, 4].map((level) => (
-                                        <div
-                                            key={level}
-                                            className={`w-3 h-3 rounded-sm contrib-${level}`}
-                                        />
-                                    ))}
+                                    <div className="flex gap-[2px]">
+                                        {[0, 1, 2, 3, 4].map((level) => (
+                                            <div
+                                                key={level}
+                                                className={`w-[10px] h-[10px] md:w-3 md:h-3 rounded-sm ${getContribColor(level)}`}
+                                            />
+                                        ))}
+                                    </div>
                                     <span>More</span>
                                 </div>
                             </div>
@@ -283,7 +236,7 @@ export default function GitHub() {
                             href="https://github.com/NaufalDanadyaksa"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full font-semibold text-white hover:opacity-90 transition-all hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-full font-semibold text-white hover:opacity-90 transition-all hover:scale-105"
                         >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
