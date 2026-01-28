@@ -120,7 +120,32 @@ export default function Hero() {
                     )}
                 </div>
 
-                {/* Scroll indicator - hidden on mobile */}
+                {/* Scroll/Swipe indicator */}
+                {/* Mobile - Swipe indicator */}
+                <div
+                    className={`md:hidden absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-700 ${isLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                    style={{ transitionDelay: "800ms" }}
+                >
+                    <div className="flex flex-col items-center gap-1">
+                        <svg
+                            className="w-5 h-5 text-[var(--muted)] animate-bounce"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 15l7-7 7 7"
+                            />
+                        </svg>
+                        <span className="text-[10px] text-[var(--muted)]">Swipe Up</span>
+                    </div>
+                </div>
+
+                {/* Desktop - Mouse scroll indicator */}
                 <div
                     className={`hidden md:block absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-700 ${isLoaded ? "opacity-100" : "opacity-0"
                         }`}
